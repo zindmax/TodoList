@@ -3,7 +3,7 @@
 <head>
     @yield("head")
 </head>
-<body>
+<body class="vh-100">
     @include("header")
     <div class="container">
         @yield("content")
