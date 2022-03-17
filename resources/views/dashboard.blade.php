@@ -6,8 +6,8 @@
     @if (Route::has('login'))
         @auth
             <div>
-                <a href="{{route('show_categories')}}">Categories</a>
-                <a href="">Show all</a>
+                <a href="{{route('categories.index')}}">Categories</a>
+                <a href="{{route('todos.index')}}">Show all</a>
             </div>
         @else
             <div class="d-flex justify-content-center">

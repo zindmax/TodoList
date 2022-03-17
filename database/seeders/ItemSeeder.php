@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class TodoItemSeeder extends Seeder
+class ItemSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class TodoItemSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('todo_items')->insert([
+        DB::table('items')->insert([
             [
                 'todo' => 'work todo user 1',
                 'todo_id' => 1

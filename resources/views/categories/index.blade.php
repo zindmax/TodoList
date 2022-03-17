@@ -2,25 +2,26 @@
 @section('head')
     @include('_head')
 @endsection
+
 @section('content')
     <div class="w-25 m-auto">
-        <a href="{{route('show_categories')}}">Go back</a>
-        <p class="mb-1">Add new todo</p>
+        <a href="{{route('dashboard')}}">Go back</a>
+        <p class="mb-1">Add new category</p>
         <div class="mb-2">
-            <form action="{{route('add_todo', ['id' => $catId])}}" method="post">
+            <form action="{{route('categories.store')}}" method="post">
                 @csrf
                 <div class="d-flex flex-row justify-content-between">
-                    <input type="text" name="todo_name" placeholder="Enter todo name">
+                    <input type="text" name="category_name" id="category_name" placeholder="Enter category name">
                     <button type="submit" class="btn-sm btn-success">Add</button>
                 </div>
             </form>
         </div>
         <ul class="list-group">
-            @foreach($todos as $todo)
+            @foreach($categories as $category)
                 <li class="list-group-item">
                     <div class="d-flex flex-row justify-content-between">
-                        <a href="{{route('show_items', ['id' => $todo->id])}}"><?=$todo->name?></a>
-                        <form action="{{route('delete_todo', ['id' => $todo->id])}}"
+                        <a href="{{route('categories.show', ['category' => $category->id])}}"><?=$category->name?></a>
+                        <form action="{{route('categories.destroy', ['category' => $category])}}"
                               method="post">
                             @csrf
                             @method('delete')

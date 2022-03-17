@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\User;
+use App\Models\Todo;
+use App\Models\Item;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 
-class CategoryController extends Controller
+class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = [];
-        if (Auth::check()) {
-            $categories = User::find(Auth::id())->categories;
-        }
-        return response()->view('categories.index', ['categories' => $categories]);
+
     }
 
     /**
@@ -42,11 +38,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::find(Auth::id());
-        $category = new Category();
-        $category->name = $request->input('category_name');
-        $user->categories()->save($category);
-        return redirect()->route('categories.index');
+        $todo = Todo::find($request->query('id'));
+        $item = new Item();
+        $item->todo = $request->input('todo_add');
+        $todo->items()->save($item);
+        return redirect()->back();
     }
 
     /**
@@ -57,12 +53,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        if (Category::find($id)->user_id === Auth::id()) {
-            $todos = Category::find($id)->todos;
-        }else{
-            return back();
-        }
-        return response()->view('categories.show', ['todos' => $todos, 'catId' => $id]);
+        //
     }
 
     /**
@@ -96,7 +87,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
-        return redirect()->route('categories.index');
+        Item::destroy($id);
+        return redirect()->back();
     }
 }

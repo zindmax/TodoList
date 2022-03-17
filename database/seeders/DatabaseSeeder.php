@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             TodoSeeder::class,
-            TodoItemSeeder::class
+            ItemSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
     }
