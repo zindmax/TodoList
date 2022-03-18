@@ -9,10 +9,14 @@
             <div class="d-flex justify-content-center mb-4">
                 <h1>Create Todo</h1>
             </div>
+            @error('todo_name')
+                <div class="alert alert-danger">{{$message}}</div>
+            @enderror
             <div class="mb-2">
                 <form id="todo_add_form" action="{{route('todos.store')}}" method="post">
                     @csrf
-                    <input class="form-control" type="text" name="todo_name" placeholder="Enter todo name">
+                    <input class="form-control @error('todo_name') is-invalid @enderror"
+                           type="text" name="todo_name" placeholder="Enter todo name">
                 </form>
             </div>
             <div class="d-flex flex-column mb-2">
@@ -20,7 +24,7 @@
                 <select class="form-select" id="category" form="todo_add_form" name="category">
                     <option value="">Without</option>
                     @foreach($categories as $category)
-                        <option value="<?=$category->id?>"><?=$category->name?></option>
+                        <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                 </select>
             </div>

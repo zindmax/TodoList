@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ItemRequest;
 use App\Models\Todo;
 use App\Models\Item;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -33,16 +32,17 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param  \App\Http\Requests\ItemRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
+        $validated = $request->validated();
         $todo = Todo::find($request->query('id'));
         $item = new Item();
-        $item->todo = $request->input('todo_add');
+        $item->todo = $validated['add_item'];
         $todo->items()->save($item);
-        return view('todos.show', ['items' => $todo->items, 'todo' => $todo]);
+        return redirect()->route('todos.show', ['todo' => $todo->id]);
     }
 
     /**

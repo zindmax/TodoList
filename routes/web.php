@@ -3,7 +3,6 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TodoController;
-use App\Http\Controllers\TodoItemController;
 use Illuminate\Support\Facades\Route;
 
 /*

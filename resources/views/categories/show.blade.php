@@ -5,7 +5,7 @@
 @section('content')
     <div class="w-25 m-auto">
         <div class="d-flex justify-content-center">
-            <h1><?=$category->name?></h1>
+            <h1>{{$category->name}}</h1>
         </div>
         <a href="{{route('categories.index')}}">Go back</a>
         <p class="mb-1">Add new todo</p>
@@ -24,7 +24,7 @@
             @foreach($todos as $todo)
                 <li class="list-group-item">
                     <div class="d-flex flex-row justify-content-between">
-                        <a href="{{route('todos.show', ['todo' => $todo])}}"><?=$todo->name?></a>
+                        <a href="{{route('todos.show', ['todo' => $todo])}}">{{$todo->name}}</a>
                         <form action="{{route('todos.destroy', ['todo' => $todo->id])}}"
                               method="post">
                             @csrf

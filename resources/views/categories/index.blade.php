@@ -22,7 +22,7 @@
             @foreach($categories as $category)
                 <li class="list-group-item">
                     <div class="d-flex flex-row justify-content-between">
-                        <a href="{{route('categories.show', ['category' => $category->id])}}"><?=$category->name?></a>
+                        <a href="{{route('categories.show', ['category' => $category->id])}}">{{$category->name}}</a>
                         <form action="{{route('categories.destroy', ['category' => $category])}}"
                               method="post">
                             @csrf

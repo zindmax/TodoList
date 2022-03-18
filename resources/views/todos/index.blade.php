@@ -10,7 +10,7 @@
                 @foreach($todos as $todo)
                     <li class="list-group-item">
                         <div class="d-flex flex-row justify-content-between">
-                            <a href="{{route('todos.show', ['todo' => $todo->id])}}"><?=$todo->name?></a>
+                            <a href="{{route('todos.show', ['todo' => $todo->id])}}">{{$todo->name}}</a>
                             <form action="{{route('todos.destroy', ['todo' => $todo->id])}}"
                                   method="post">
                                 @csrf

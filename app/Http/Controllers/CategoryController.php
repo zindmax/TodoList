@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 
 class CategoryController extends Controller
 {
@@ -37,14 +37,15 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CategoryRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
+        $validated = $request->validated();
         $user = User::find(Auth::id());
         $category = new Category();
-        $category->name = $request->input('category_name');
+        $category->name = $validated['category_name'];
         $user->categories()->save($category);
         return redirect()->route('categories.show', ['category' => $category]);
     }

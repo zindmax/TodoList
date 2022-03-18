@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TodoRequest;
 use App\Models\Category;
 use App\Models\Todo;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
@@ -13,7 +15,7 @@ class TodoController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -35,17 +37,20 @@ class TodoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\TodoRequest  $request
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(TodoRequest $request)
     {
-        $user = User::find(Auth::id());
-        $category = Category::find($request->input('category'));
+        $validated = $request->validated();
         $todo = new Todo();
-        $todo->name = $request->input('todo_name');
+        $user = User::find(Auth::id());
+        $todo->name = $validated['todo_name'];
         $user->todos()->save($todo);
-        $category->todos()->save($todo);
+        if ($request->input('category') !== null) {
+            $category = Category::find($request->input('category'));
+            $category->todos()->save($todo);
+        }
         return response()->view('todos.show', ['todo' => $todo]);
     }
 
@@ -53,7 +58,7 @@ class TodoController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -71,7 +76,7 @@ class TodoController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -83,7 +88,7 @@ class TodoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
