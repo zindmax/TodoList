@@ -11,8 +11,10 @@
             <form action="{{route('categories.store')}}" method="post">
                 @csrf
                 <div class="d-flex flex-row justify-content-between">
-                    <input type="text" name="category_name" id="category_name" placeholder="Enter category name">
-                    <button type="submit" class="btn-sm btn-success">Add</button>
+                    <input class="form-control" type="text" name="category_name" id="category_name" placeholder="Enter category name">
+                    <div class="ms-1">
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </div>
                 </div>
             </form>
         </div>

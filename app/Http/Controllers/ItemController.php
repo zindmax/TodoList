@@ -34,7 +34,7 @@ class ItemController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function store(Request $request)
     {
@@ -42,7 +42,7 @@ class ItemController extends Controller
         $item = new Item();
         $item->todo = $request->input('todo_add');
         $todo->items()->save($item);
-        return redirect()->back();
+        return view('todos.show', ['items' => $todo->items, 'todo' => $todo]);
     }
 
     /**
@@ -83,10 +83,11 @@ class ItemController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        $todo = Todo::find($request->query('todo'));
         Item::destroy($id);
         return redirect()->back();
     }

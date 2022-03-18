@@ -21,7 +21,7 @@ Route::view('/', 'dashboard')->name('dashboard');
 Route::middleware(['auth'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('todos', TodoController::class);
-    Route::resource('items', ItemController::class)->only(['store', 'edit', 'destroy']);
+    Route::resource('items', ItemController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Todo;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,17 +18,18 @@ class TodoController extends Controller
     public function index()
     {
         $todos = User::find(Auth::id())->todos;
-        return response()->view('todo.index', ['todos' => $todos]);
+        return response()->view('todos.index', ['todos' => $todos]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        $categories = User::find(Auth::id())->categories;
+        return view('todos.create', ['categories' => $categories]);
     }
 
     /**
@@ -41,12 +41,12 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $user = User::find(Auth::id());
-        $category = Category::find($request->input('id'));
+        $category = Category::find($request->input('category'));
         $todo = new Todo();
         $todo->name = $request->input('todo_name');
         $user->todos()->save($todo);
         $category->todos()->save($todo);
-        return response()->view('todo.show', ['todo' => $todo]);
+        return response()->view('todos.show', ['todo' => $todo]);
     }
 
     /**
@@ -64,7 +64,7 @@ class TodoController extends Controller
             return back();
         }
         $categoryId = Todo::find($id)->category_id;
-        return response()->view('todo.show', ['items' => $items, 'todo' => $todo, 'catId' => $categoryId]);
+        return response()->view('todos.show', ['items' => $items, 'todo' => $todo, 'catId' => $categoryId]);
     }
 
     /**
