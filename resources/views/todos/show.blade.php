@@ -9,7 +9,8 @@
     <div class="d-flex justify-content-center">
         <h1>{{$todo->name}}</h1>
     </div>
-    <a href="{{url()->previous()}}">Go back</a>
+    <a href="@if(isset($category)){{route('categories.show', ['category' => $category])}}
+            @else{{route('todos.index')}}@endif">Go back</a>
     <div class="mb-1">
         @error('add_item')
         <div class="alert alert-danger">
