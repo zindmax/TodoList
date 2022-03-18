@@ -14,7 +14,7 @@
         <form action="{{@route('items.store', ['id' => $todo->id])}}" method="POST" name="">
             @csrf
             <div class="d-flex flex-row justify-content-between">
-                <input type="text" name="todo_add" placeholder="Enter your todo">
+                <input type="text" name="todo_add" class="w-75" placeholder="Enter your todo">
                 <button type="submit" class="btn-sm btn-success align-self-end">Add</button>
             </div>
         </form>
