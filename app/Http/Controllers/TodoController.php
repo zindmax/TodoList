@@ -69,7 +69,7 @@ class TodoController extends Controller
             return back();
         }
         $categoryId = Todo::find($id)->category_id;
-        return response()->view('todos.show', ['items' => $items, 'todo' => $todo, 'catId' => $categoryId]);
+        return response()->view('todos.show', ['items' => $items, 'todo' => $todo, 'category' => $categoryId]);
     }
 
     /**

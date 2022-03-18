@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('todos');
+            $table->string('todo');
+            $table->boolean('completed')->default(false);
             $table->foreignId('todo_id')
                 ->constrained()
                 ->onUpdate('cascade')

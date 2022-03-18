@@ -21,6 +21,14 @@ class CategoryController extends Controller
         if (Auth::check()) {
             $categories = User::find(Auth::id())->categories;
         }
+        foreach ($categories as $category) {
+            $todos = Category::find($category->id)->todos;
+            if($todos->isNotEmpty()) {
+                $category->isset = true;
+            }else{
+                $category->isset = false;
+            }
+        }
         return response()->view('categories.index', ['categories' => $categories]);
     }
 

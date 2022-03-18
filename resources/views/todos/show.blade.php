@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-center">
         <h1>{{$todo->name}}</h1>
     </div>
-{{--    <a href="{{route('show_category', ['id' => $catId])}}">Go back</a>--}}
+    <a href="{{url()->previous()}}">Go back</a>
     <div class="mb-1">
         @error('add_item')
         <div class="alert alert-danger">
@@ -31,14 +31,24 @@
         <ul class="list-group">
             @if(isset($items))
                 @foreach($items as $item)
-                <li class="list-group-item">
+                <li class="list-group-item" @if($item->completed)style="background-color: #7cf87c" @endif>
                     <div class="d-flex flex-row justify-content-between">
                         <p>{{$item->todo}}<p>
-                        <form action="{{route('items.destroy', ['item' => $item->id, 'todo' => $todo])}}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn-sm btn-danger">Х</button>
-                        </form>
+                        <div class="d-flex flex-row">
+                            <div class="me-2">
+                                <form action="{{route('items.update', ['item' => $item->id, 'todo' => $todo])}}" method="post">
+                                    @csrf
+                                    @method('patch')
+                                    <input type="hidden" name="complete" value="">
+                                    <button type="submit" class="btn-sm btn-success">&#10003;</button>
+                                </form>
+                            </div>
+                            <form action="{{route('items.destroy', ['item' => $item->id, 'todo' => $todo])}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn-sm btn-danger">Х</button>
+                            </form>
+                        </div>
                     </div>
                 </li>
                 @endforeach

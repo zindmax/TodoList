@@ -4,7 +4,9 @@
 @endsection
 @section('content')
     <div class="w-25 m-auto">
-        <p>All your todos</p>
+        <div class="d-flex justify-content-center mb-4">
+            <h1>All your todos</h1>
+        </div>
         <ul class="list-group">
             @if(isset($todos))
                 @foreach($todos as $todo)
@@ -15,7 +17,8 @@
                                   method="post">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn-sm btn-danger">Х</button>
+                                <button type="submit" class="btn-sm btn-danger show_confirm"
+                                        data-toggle="tooltip" title='Delete'>Х</button>
                             </form>
                         </div>
                     </li>
@@ -23,4 +26,5 @@
             @endif
         </ul>
     </div>
+    <script type="text/javascript" src="{{asset('js/delete_confirm.js')}}"></script>
 @endsection

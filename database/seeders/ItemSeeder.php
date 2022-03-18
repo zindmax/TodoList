@@ -17,19 +17,19 @@ class ItemSeeder extends Seeder
     {
         DB::table('items')->insert([
             [
-                'todos' => 'work todos user 1',
+                'todo' => 'work todos user 1',
                 'todo_id' => 1
             ],
             [
-                'todos' => 'home todos user 1',
+                'todo' => 'home todos user 1',
                 'todo_id' => 2
             ],
             [
-                'todos' => 'my work todos user 2',
+                'todo' => 'my work todos user 2',
                 'todo_id' => 3
             ],
             [
-                'todos' => 'my home todos user 2',
+                'todo' => 'my home todos user 2',
                 'todo_id' => 4
             ]
         ]);

@@ -5,6 +5,9 @@
 
 @section('content')
     <div class="w-25 m-auto">
+        <div class="d-flex justify-content-center mb-4">
+            <h1>Categories</h1>
+        </div>
         <a href="{{route('dashboard')}}">Go back</a>
         <p class="mb-1">Add new category</p>
         <div class="mb-2">
@@ -27,11 +30,14 @@
                               method="post">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn-sm btn-danger">Х</button>
+                            <button type="submit" class="btn-sm btn-danger
+                                    @if($category->isset) show_confirm_not_empty @else show_confirm @endif">Х</button>
                         </form>
                     </div>
                 </li>
             @endforeach
         </ul>
     </div>
+    <script type="text/javascript" src="{{asset('js/delete_confirm.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/not_empty_delete_confirm.js')}}"></script>
 @endsection

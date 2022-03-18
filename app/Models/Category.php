@@ -15,4 +15,8 @@ class Category extends Model
     {
         return $this->hasMany(Todo::class);
     }
+
+    public function getIsset() {
+        return $this->attributes['isset'];
+    }
 }

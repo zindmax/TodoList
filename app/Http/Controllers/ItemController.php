@@ -72,11 +72,16 @@ class ItemController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $todo = Item::find($id);
+        if ($request->has('complete')) {
+            $todo->completed = $todo->completed === 0;
+        }
+        $todo->save();
+        return redirect()->back();
     }
 
     /**
