@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-center">
         <h1>{{$todo->name}}</h1>
     </div>
-    <a href="@if(isset($category)){{route('categories.show', ['category' => $category])}}
+    <a href="<@if(isset($category)){{route('categories.show', ['category' => $category])}}
             @else{{route('todos.index')}}@endif">Go back</a>
     <div class="mb-1">
         @error('add_item')
@@ -36,6 +36,14 @@
                     <div class="d-flex flex-row justify-content-between">
                         <p>{{$item->todo}}<p>
                         <div class="d-flex flex-row">
+                            <div class="me-2">
+                                <form action="{{route('todos.update', ['todo' => $todo])}}"
+                                      method="post">
+                                    @csrf
+                                    @method('post')
+                                    <button type="submit" class="btn-sm btn-primary">Edit</button>
+                                </form>
+                            </div>
                             <div class="me-2">
                                 <form action="{{route('items.update', ['item' => $item->id, 'todo' => $todo])}}" method="post">
                                     @csrf

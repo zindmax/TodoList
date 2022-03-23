@@ -10,4 +10,8 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = ['todos'];
+
+    public function todo() {
+        return $this->belongsTo(Todo::class);
+    }
 }

@@ -13,13 +13,23 @@
                     <li class="list-group-item">
                         <div class="d-flex flex-row justify-content-between">
                             <a href="{{route('todos.show', ['todo' => $todo->id])}}">{{$todo->name}}</a>
-                            <form action="{{route('todos.destroy', ['todo' => $todo->id])}}"
-                                  method="post">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn-sm btn-danger show_confirm"
-                                        data-toggle="tooltip" title='Delete'>Х</button>
-                            </form>
+                            <div class="d-flex flex-row">
+                                <div class="me-2">
+                                    <form action="{{route('todos.update', ['todo' => $todo])}}"
+                                          method="post">
+                                        @csrf
+                                        @method('post')
+                                        <button type="submit" class="btn-sm btn-primary">Edit</button>
+                                    </form>
+                                </div>
+                                <form action="{{route('todos.destroy', ['todo' => $todo->id])}}"
+                                      method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn-sm btn-danger show_confirm"
+                                            data-toggle="tooltip" title='Delete'>Х</button>
+                                </form>
+                            </div>
                         </div>
                     </li>
                 @endforeach

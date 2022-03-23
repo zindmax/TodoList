@@ -83,7 +83,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = [];
+        if (Auth::check()) {
+            $categories = User::find(Auth::id())->categories;
+        }
+        return response()->view('categories.index', ['categories' => $categories, 'edit' => true, 'id' => $id]);
     }
 
     /**
@@ -95,7 +99,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        return response()->view('categories.index', ['categories' => $categories, 'edit' => true]);
     }
 
     /**
